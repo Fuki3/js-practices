@@ -1,11 +1,13 @@
-for (let fizzbuzz = 1; fizzbuzz <= 20; fizzbuzz++) {
-  if (fizzbuzz % 15 === 0) {
+#!/usr/bin/env node
+
+for (let number = 1; number <= 20; number++) {
+  if (number % 15 === 0) {
     console.log("Fizzbuzz");
-  } else if (fizzbuzz % 3 === 0) {
+  } else if (number % 3 === 0) {
     console.log("Fizz");
-  } else if (fizzbuzz % 5 === 0) {
+  } else if (number % 5 === 0) {
     console.log("Buzz");
   } else {
-    console.log(fizzbuzz);
+    console.log(number);
   }
 }
