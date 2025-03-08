@@ -4,9 +4,8 @@ import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
-const now = new Date();
-const year = argv.y ?? now.getFullYear();
-const month = argv.m ?? now.getMonth() + 1;
+const year = argv.y ?? new Date().getFullYear();
+const month = argv.m ?? new Date().getMonth() + 1;
 const day = new Date(year, month - 1, 1);
 const lastDay = new Date(year, month, 0);
 
