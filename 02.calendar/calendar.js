@@ -19,11 +19,11 @@ for (let blank = 0; blank < week_count; blank++) {
   process.stdout.write("   ");
 }
 for (let number = first_day.getDate(); number <= last_day.getDate(); number++) {
-  if (String(number).length == 1) {
+  if (String(number).length === 1) {
     process.stdout.write(" ");
   }
   process.stdout.write(number + " ");
-  if (week_count == 6) {
+  if (week_count === 6) {
     process.stdout.write("\n");
     week_count = 0;
   } else {
