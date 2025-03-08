@@ -20,18 +20,15 @@ for (
 ) {
   process.stdout.write("   ");
 }
-for (
-  let eachDay = firstDay.getDate();
-  eachDay <= lastDay.getDate();
-  eachDay++
-) {
+for (let eachDay = firstDay.getDate(); eachDay < lastDay.getDate(); eachDay++) {
   if (String(eachDay).length === 1) {
     process.stdout.write(" ");
   }
   firstDay.setDate(eachDay);
-  process.stdout.write(firstDay.getDate() + " ");
   if (firstDay.getDay() === 6) {
-    process.stdout.write("\n");
+    process.stdout.write(firstDay.getDate() + "\n");
+  } else {
+    process.stdout.write(firstDay.getDate() + " ");
   }
 }
-process.stdout.write("\n" + "\n");
+process.stdout.write(lastDay.getDate() + "\n" + "\n");
