@@ -5,8 +5,8 @@ import minimist from "minimist";
 const argv = minimist(process.argv.slice(2));
 
 const now_date = new Date();
-const output_year = argv.y || now_date.getFullYear();
-const output_month = argv.m || now_date.getMonth() + 1;
+const output_year = argv.y ?? now_date.getFullYear();
+const output_month = argv.m ?? now_date.getMonth() + 1;
 const first_day = new Date(output_year, output_month - 1, 1);
 const last_day = new Date(output_year, output_month, 0);
 const week = first_day.getDay();
