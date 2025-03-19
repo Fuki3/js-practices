@@ -22,9 +22,9 @@ for (let eachDay = day.getDate(); eachDay < lastDay.getDate(); eachDay++) {
   }
   day.setDate(eachDay);
   if (day.getDay() === 6) {
-    process.stdout.write(day.getDate() + "\n");
+    process.stdout.write(`${day.getDate()}\n`);
   } else {
-    process.stdout.write(day.getDate() + " ");
+    process.stdout.write(`${day.getDate()} `);
   }
 }
-process.stdout.write(lastDay.getDate() + "\n" + "\n");
+process.stdout.write(`${lastDay.getDate()}\n\n`);
