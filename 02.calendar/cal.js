@@ -13,9 +13,8 @@ const lastDay = new Date(year, month, 0);
 console.log(`      ${month}月 ${year}`);
 console.log("日 月 火 水 木 金 土");
 
-for (let numberOfBlank = 0; numberOfBlank < day.getDay(); numberOfBlank++) {
-  process.stdout.write("   ");
-}
+process.stdout.write(" ".repeat(day.getDay() * 3));
+
 for (let eachDay = day.getDate(); eachDay < lastDay.getDate(); eachDay++) {
   if (String(eachDay).length === 1) {
     process.stdout.write(" ");
