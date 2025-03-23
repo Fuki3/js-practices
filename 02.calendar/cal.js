@@ -20,10 +20,11 @@ for (let eachDay = day.getDate(); eachDay < lastDay.getDate(); eachDay++) {
     process.stdout.write(" ");
   }
   day.setDate(eachDay);
+  process.stdout.write(String(day.getDate()));
   if (day.getDay() === 6) {
-    process.stdout.write(`${day.getDate()}\n`);
+    process.stdout.write("\n");
   } else {
-    process.stdout.write(`${day.getDate()} `);
+    process.stdout.write(" ");
   }
 }
 process.stdout.write(`${lastDay.getDate()}\n\n`);
