@@ -15,13 +15,12 @@ console.log("日 月 火 水 木 金 土");
 
 process.stdout.write(" ".repeat(day.getDay() * 3));
 
-for (let eachDay = day.getDate(); eachDay < lastDay.getDate(); eachDay++) {
-  if (String(eachDay).length === 1) {
+for (let date = day; date < lastDay; date.setDate(date.getDate() + 1)) {
+  if (String(date.getDate()).length === 1) {
     process.stdout.write(" ");
   }
-  day.setDate(eachDay);
-  process.stdout.write(String(day.getDate()));
-  if (day.getDay() === 6) {
+  process.stdout.write(String(date.getDate()));
+  if (date.getDay() === 6) {
     process.stdout.write("\n");
   } else {
     process.stdout.write(" ");
