@@ -17,9 +17,10 @@ process.stdout.write(" ".repeat(firstDay.getDay() * 3));
 
 for (let date = firstDay; date <= lastDay; ) {
   process.stdout.write(date.getDate().toString().padStart(2, " "));
-  if (date.getTime() !== lastDay.getTime) {
-    process.stdout.write(date.getDay() === 6 ? "\n" : " ");
+  if (date.getTime() === lastDay.getTime()) {
+    break;
   }
+  process.stdout.write(date.getDay() === 6 ? "\n" : " ");
   date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 }
 process.stdout.write("\n\n");
