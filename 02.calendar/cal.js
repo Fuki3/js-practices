@@ -15,12 +15,16 @@ console.log("日 月 火 水 木 金 土");
 
 process.stdout.write(" ".repeat(firstDay.getDay() * 3));
 
-for (let date = firstDay; date <= lastDay; ) {
-  process.stdout.write(date.getDate().toString().padStart(2, " "));
-  if (date.getTime() === lastDay.getTime()) {
+for (let currentDay = firstDay; currentDay <= lastDay; ) {
+  process.stdout.write(currentDay.getDate().toString().padStart(2, " "));
+  if (currentDay.getTime() === lastDay.getTime()) {
     break;
   }
-  process.stdout.write(date.getDay() === 6 ? "\n" : " ");
-  date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+  process.stdout.write(currentDay.getDay() === 6 ? "\n" : " ");
+  currentDay = new Date(
+    currentDay.getFullYear(),
+    currentDay.getMonth(),
+    currentDay.getDate() + 1,
+  );
 }
 process.stdout.write("\n\n");
