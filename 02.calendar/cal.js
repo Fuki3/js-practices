@@ -26,9 +26,11 @@ for (
 ) {
   process.stdout.write(currentDay.getDate().toString().padStart(2, " "));
 
-  if (currentDay.getTime() !== lastDay.getTime()) {
-    process.stdout.write(currentDay.getDay() === 6 ? "\n" : " ");
+  if (currentDay.getTime() === lastDay.getTime()) {
+    process.stdout.write("\n\n");
+  } else if (currentDay.getDay() === 6) {
+    process.stdout.write("\n");
+  } else {
+    process.stdout.write(" ");
   }
 }
-
-process.stdout.write("\n\n");
