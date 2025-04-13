@@ -16,13 +16,9 @@ console.log("日 月 火 水 木 金 土");
 process.stdout.write(" ".repeat(firstDay.getDay() * 3));
 
 for (
-  let currentDay = firstDay;
+  let currentDay = new Date(firstDay);
   currentDay <= lastDay;
-  currentDay = new Date(
-    currentDay.getFullYear(),
-    currentDay.getMonth(),
-    currentDay.getDate() + 1,
-  )
+  currentDay.setDate(currentDay.getDate() + 1)
 ) {
   process.stdout.write(currentDay.getDate().toString().padStart(2, " "));
 
