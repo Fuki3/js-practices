@@ -11,8 +11,10 @@ db.run(
       console.error(`Get Error: ${err.message}`);
       db.get("SELECT * FROM memo", (err) => {
         console.error(`Get Error: ${err.message}`);
-        db.run("DROP TABLE books");
-        db.close();
+        db.run("DROP TABLE books"),
+          function () {
+            db.close();
+          };
       });
     });
   },

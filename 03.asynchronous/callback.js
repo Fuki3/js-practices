@@ -11,8 +11,10 @@ db.run(
       console.log(this.lastID);
       db.get("SELECT * FROM books", (_, data) => {
         console.log(data);
-        db.run("DROP TABLE books");
-        db.close();
+        db.run("DROP TABLE books"),
+          function () {
+            db.close();
+          };
       });
     });
   },
