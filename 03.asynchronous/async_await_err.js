@@ -7,7 +7,7 @@ async function LearnAsynchronous() {
     await run(
       "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
     );
-    await run("INSERT INTO books(title) VALUES(?)");
+    await run("INSERT INTO books(title) VALUES(?)", null);
   } catch (err) {
     console.error(`Get Error: ${err.message}`);
   }

@@ -6,7 +6,7 @@ run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 )
   .then(() => {
-    return run("INSERT INTO books(title) VALUES(?)");
+    return run("INSERT INTO books(title) VALUES(?)", null);
   })
   .catch((err) => {
     console.error(`Get Error: ${err.message}`);
