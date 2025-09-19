@@ -18,11 +18,11 @@ function run(sql, params) {
 
 function get(sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, [params], function (err, data) {
+    db.get(sql, [params], function (err, title) {
       if (err) {
         reject(err);
       } else {
-        resolve(data);
+        resolve(title);
       }
     });
   });

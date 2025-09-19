@@ -8,12 +8,12 @@ run(
   .then(() => {
     return run("INSERT INTO books(title) VALUES(?)", "初めてのJavaScript");
   })
-  .then((data) => {
-    console.log(data.lastID);
+  .then((book) => {
+    console.log(book.lastID);
     return get("SELECT * FROM books");
   })
-  .then((data) => {
-    console.log(data);
+  .then((title) => {
+    console.log(title);
     return run("DROP TABLE books");
   })
   .then(() => {
