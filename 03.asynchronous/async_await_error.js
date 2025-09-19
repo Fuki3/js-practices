@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { run, get, close } from "./utils.js";
+import { run, get, close } from "./sqliteUtils.js";
 
 async function LearnAsynchronous() {
   try {

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { run, get, close } from "./utils.js";
+import { run, get, close } from "./sqliteUtils.js";
 
 run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
