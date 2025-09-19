@@ -8,13 +8,13 @@ async function LearnAsynchronous() {
       "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
     );
     await run("INSERT INTO books(title) VALUES(?)", null);
-  } catch (err) {
-    console.error(`Get Error: ${err.message}`);
+  } catch (error) {
+    console.error(`Get Error: ${error.message}`);
   }
   try {
     await get("SELECT * FROM memo");
-  } catch (err) {
-    console.error(`Get Error: ${err.message}`);
+  } catch (error) {
+    console.error(`Get Error: ${error.message}`);
     await run("DROP TABLE books");
   } finally {
     close();

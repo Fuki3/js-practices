@@ -6,9 +6,9 @@ const db = new sqlite3.Database(":memory:");
 
 function run(sql, params) {
   return new Promise((resolve, reject) => {
-    db.run(sql, [params], function (err) {
-      if (err) {
-        reject(err);
+    db.run(sql, [params], function (error) {
+      if (error) {
+        reject(error);
       } else {
         resolve({ lastID: this.lastID });
       }
@@ -18,9 +18,9 @@ function run(sql, params) {
 
 function get(sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, [params], function (err, title) {
-      if (err) {
-        reject(err);
+    db.get(sql, [params], function (error, title) {
+      if (error) {
+        reject(error);
       } else {
         resolve(title);
       }

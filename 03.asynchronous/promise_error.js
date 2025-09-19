@@ -8,12 +8,12 @@ run(
   .then(() => {
     return run("INSERT INTO books(title) VALUES(?)", null);
   })
-  .catch((err) => {
-    console.error(`Get Error: ${err.message}`);
+  .catch((error) => {
+    console.error(`Get Error: ${error.message}`);
     return get("SELECT * FROM memo");
   })
-  .catch((err) => {
-    console.error(`Get Error: ${err.message}`);
+  .catch((error) => {
+    console.error(`Get Error: ${error.message}`);
     return run("DROP TABLE books");
   })
   .then(() => {
