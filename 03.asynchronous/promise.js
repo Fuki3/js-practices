@@ -6,7 +6,7 @@ run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 )
   .then(() => {
-    return run("INSERT INTO books(title) VALUES(?)", "a");
+    return run("INSERT INTO books(title) VALUES(?)", "初めてのJavaScript");
   })
   .then((data) => {
     console.log(data.lastID);
