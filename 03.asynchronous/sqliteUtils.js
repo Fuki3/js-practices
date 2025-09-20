@@ -2,7 +2,7 @@
 
 function run(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.run(sql, [params], function (error) {
+    db.run(sql, params, function (error) {
       if (error) {
         reject(error);
       } else {
@@ -14,7 +14,7 @@ function run(db, sql, params) {
 
 function get(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, [params], function (error, title) {
+    db.get(sql, params, function (error, title) {
       if (error) {
         reject(error);
       } else {
