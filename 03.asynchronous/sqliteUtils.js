@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-function run(db, sql, params) {
+export function run(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.run(sql, params, function (error) {
       if (error) {
@@ -12,7 +12,7 @@ function run(db, sql, params) {
   });
 }
 
-function get(db, sql, params) {
+export function get(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.get(sql, params, function (error, title) {
       if (error) {
@@ -24,8 +24,6 @@ function get(db, sql, params) {
   });
 }
 
-function close(db) {
+export function close(db) {
   db.close();
 }
-
-export { run, get, close };
