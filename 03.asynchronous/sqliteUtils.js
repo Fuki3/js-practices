@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
-import sqlite3 from "sqlite3";
-
-const db = new sqlite3.Database(":memory:");
-
-function run(sql, params) {
+function run(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.run(sql, [params], function (error) {
       if (error) {
@@ -16,7 +12,7 @@ function run(sql, params) {
   });
 }
 
-function get(sql, params) {
+function get(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.get(sql, [params], function (error, title) {
       if (error) {
@@ -28,7 +24,7 @@ function get(sql, params) {
   });
 }
 
-function close() {
+function close(db) {
   db.close();
 }
 
