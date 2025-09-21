@@ -14,8 +14,8 @@ try {
     "初めてのJavaScript",
   ]);
   console.log(addedBook.lastID);
-  const getRecord = await get(db, "SELECT * FROM books");
-  console.log(getRecord);
+  const fetchedBook = await get(db, "SELECT * FROM books");
+  console.log(fetchedBook);
   await run(db, "DROP TABLE books");
 } finally {
   close(db);
