@@ -25,9 +25,5 @@ export function get(db, sql, params) {
 }
 
 export function close(db) {
-  return new Promise((resolve) => {
-    db.close(() => {
-      resolve();
-    });
-  });
+  return new Promise((resolve) => db.close(() => resolve()));
 }
