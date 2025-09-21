@@ -20,4 +20,4 @@ run(
     console.log(title);
     return run(db, "DROP TABLE books");
   })
-  .finally(() => close(db));
+  .then(() => close(db));

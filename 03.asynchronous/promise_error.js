@@ -18,4 +18,4 @@ run(
     console.error(`Get Error: ${error.message}`);
     return run(db, "DROP TABLE books");
   })
-  .finally(() => close(db));
+  .then(() => close(db));
