@@ -10,7 +10,7 @@ run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 )
   .then(() =>
-    run(db, "INSERT INTO books(title) VALUES(?)", "初めてのJavaScript"),
+    run(db, "INSERT INTO books(title) VALUES(?)", ["初めてのJavaScript"]),
   )
   .then((book) => {
     console.log(book.lastID);

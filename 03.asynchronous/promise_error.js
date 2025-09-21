@@ -9,7 +9,7 @@ run(
   db,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 )
-  .then(() => run(db, "INSERT INTO books(title) VALUES(?)", null))
+  .then(() => run(db, "INSERT INTO books(title) VALUES(?)", [null]))
   .catch((error) => {
     console.error(`Get Error: ${error.message}`);
     return get(db, "SELECT * FROM memo");
