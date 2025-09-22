@@ -12,12 +12,20 @@ await run(
 try {
   await run(db, "INSERT INTO books(title) VALUES(?)", [null]);
 } catch (error) {
-  console.error(`Get Error: ${error.message}`);
+  if (error.message.includes("NOT NULL constraint failed: books.title")) {
+    console.error(`Get Error: ${error.message}`);
+  } else {
+    throw error;
+  }
 }
 try {
   await get(db, "SELECT * FROM memo");
 } catch (error) {
-  console.error(`Get Error: ${error.message}`);
+  if (error.message.includes("no such table: memo")) {
+    console.error(`Get Error: ${error.message}`);
+  } else {
+    throw error;
+  }
 }
 await run(db, "DROP TABLE books");
 await close(db);
