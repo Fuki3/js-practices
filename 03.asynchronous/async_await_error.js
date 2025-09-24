@@ -13,7 +13,7 @@ try {
   await run(db, "INSERT INTO books(title) VALUES(?)", [null]);
 } catch (error) {
   if (error.message.includes("NOT NULL constraint failed: books.title")) {
-    console.error(`Get Error: ${error.message}`);
+    console.error(`Received Error: ${error.message}`);
   } else {
     throw error;
   }
@@ -22,7 +22,7 @@ try {
   await get(db, "SELECT * FROM memo");
 } catch (error) {
   if (error.message.includes("no such table: memo")) {
-    console.error(`Get Error: ${error.message}`);
+    console.error(`Received Error: ${error.message}`);
   } else {
     throw error;
   }

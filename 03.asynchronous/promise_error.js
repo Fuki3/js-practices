@@ -11,11 +11,11 @@ run(
 )
   .then(() => run(db, "INSERT INTO books(title) VALUES(?)", [null]))
   .catch((error) => {
-    console.error(`Get Error: ${error.message}`);
+    console.error(`Received Error: ${error.message}`);
     return get(db, "SELECT * FROM memo");
   })
   .catch((error) => {
-    console.error(`Get Error: ${error.message}`);
+    console.error(`Received Error: ${error.message}`);
     return run(db, "DROP TABLE books");
   })
   .then(() => close(db));
