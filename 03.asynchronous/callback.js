@@ -12,9 +12,9 @@ db.run(
       ["初めてのJavaScript"],
       function () {
         console.log(this.lastID);
-        db.get("SELECT * FROM books", function (_, title) {
+        db.get("SELECT * FROM books", (_, title) => {
           console.log(title);
-          db.run("DROP TABLE books", function () {
+          db.run("DROP TABLE books", () => {
             db.close();
           });
         });

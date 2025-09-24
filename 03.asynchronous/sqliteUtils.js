@@ -14,7 +14,7 @@ export function run(db, sql, params) {
 
 export function get(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, params, function (error, title) {
+    db.get(sql, params, (error, title) => {
       if (error) {
         reject(error);
       } else {
