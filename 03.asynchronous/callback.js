@@ -12,8 +12,8 @@ db.run(
       ["初めてのJavaScript"],
       function () {
         console.log(this.lastID);
-        db.get("SELECT * FROM books", (_, book) => {
-          console.log(book);
+        db.get("SELECT * FROM books", (_, fetchedBook) => {
+          console.log(fetchedBook);
           db.run("DROP TABLE books", () => {
             db.close();
           });

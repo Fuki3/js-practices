@@ -12,12 +12,12 @@ run(
   .then(() =>
     run(db, "INSERT INTO books(title) VALUES(?)", ["初めてのJavaScript"]),
   )
-  .then((book) => {
-    console.log(book.lastID);
+  .then((addedBook) => {
+    console.log(addedBook.lastID);
     return get(db, "SELECT * FROM books");
   })
-  .then((title) => {
-    console.log(title);
+  .then((fetchedBook) => {
+    console.log(fetchedBook);
     return run(db, "DROP TABLE books");
   })
   .then(() => close(db));
