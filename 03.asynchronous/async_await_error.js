@@ -13,7 +13,7 @@ try {
   await run(db, "INSERT INTO books(title) VALUES(?)", [null]);
 } catch (error) {
   if (error?.code === "SQLITE_CONSTRAINT") {
-    console.error(`Received Error: ${error.message}`);
+    console.error(`Error: ${error.message}`);
   } else {
     throw error;
   }
@@ -22,7 +22,7 @@ try {
   await get(db, "SELECT * FROM memo");
 } catch (error) {
   if (error?.code === "SQLITE_ERROR") {
-    console.error(`Received Error: ${error.message}`);
+    console.error(`Error: ${error.message}`);
   } else {
     throw error;
   }
