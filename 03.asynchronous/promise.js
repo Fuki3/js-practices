@@ -12,8 +12,8 @@ run(
   .then(() =>
     run(db, "INSERT INTO books(title) VALUES(?)", ["初めてのJavaScript"]),
   )
-  .then((addedBook) => {
-    console.log(addedBook.lastID);
+  .then((statement) => {
+    console.log(statement.lastID);
     return get(db, "SELECT * FROM books");
   })
   .then((fetchedBook) => {

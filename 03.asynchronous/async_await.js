@@ -9,10 +9,10 @@ await run(
   db,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE NOT NULL)",
 );
-const addedBook = await run(db, "INSERT INTO books(title) VALUES(?)", [
+const statement = await run(db, "INSERT INTO books(title) VALUES(?)", [
   "初めてのJavaScript",
 ]);
-console.log(addedBook.lastID);
+console.log(statement.lastID);
 const fetchedBook = await get(db, "SELECT * FROM books");
 console.log(fetchedBook);
 await run(db, "DROP TABLE books");
