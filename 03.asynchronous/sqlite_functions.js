@@ -12,11 +12,11 @@ export function run(db, sql, params) {
 
 export function get(db, sql, params) {
   return new Promise((resolve, reject) => {
-    db.get(sql, params, (error, title) => {
+    db.get(sql, params, (error, row) => {
       if (error) {
         reject(error);
       } else {
-        resolve(title);
+        resolve(row);
       }
     });
   });
