@@ -13,7 +13,7 @@ const statement = await run(db, "INSERT INTO books(title) VALUES(?)", [
   "初めてのJavaScript",
 ]);
 console.log(statement.lastID);
-const fetchedBook = await get(db, "SELECT * FROM books");
-console.log(fetchedBook);
+const book = await get(db, "SELECT * FROM books");
+console.log(book);
 await run(db, "DROP TABLE books");
 await close(db);

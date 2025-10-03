@@ -16,8 +16,8 @@ run(
     console.log(statement.lastID);
     return get(db, "SELECT * FROM books");
   })
-  .then((fetchedBook) => {
-    console.log(fetchedBook);
+  .then((book) => {
+    console.log(book);
     return run(db, "DROP TABLE books");
   })
   .then(() => close(db));
