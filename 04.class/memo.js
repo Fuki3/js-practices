@@ -16,5 +16,6 @@ rl.on("line", (input) => {
 });
 
 rl.on("close", async () => {
-  await fs.writeFile(`${lines[0]}.txt`, lines.join("\n"));
+  await fs.mkdir("memos", { recursive: true });
+  await fs.writeFile(`./memos/${lines[0]}.txt`, lines.join("\n"));
 });
