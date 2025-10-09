@@ -80,6 +80,52 @@ if (argv[0] === "-l") {
     }
   }
   showList(`./memos/${answer}.txt`);
+} else if (argv[0] === "-d") {
+  async function readFirstLine(filePath) {
+    try {
+      const content = await fs.readFile(filePath, "utf8");
+      const firstLine = content.split("\n")[0];
+      return firstLine;
+    } catch (err) {
+      console.error(`Error: ${filePath}`, err);
+      return null;
+    }
+  }
+
+  async function readAllFilesFirstLine(directoryPath) {
+    const lines = [];
+    try {
+      const files = await fs.readdir(directoryPath);
+      for (const file of files) {
+        const Path = path.join(directoryPath, file);
+        const line = await readFirstLine(Path);
+        lines.push(line);
+      }
+      return lines;
+    } catch (err) {
+      console.error("Error:", err);
+      return [];
+    }
+  }
+
+  const lines = await readAllFilesFirstLine("./memos");
+
+  const prompt = new Select({
+    message: "Choose a memo you want to delete:",
+    choices: lines,
+  });
+
+  const answer = await prompt.run();
+
+  async function deleteFile(filePath) {
+    try {
+      await fs.unlink(filePath);
+    } catch (err) {
+      console.error("Error:", err.message);
+    }
+  }
+
+  deleteFile(`./memos/${answer}.txt`);
 } else {
   const rl = readline.createInterface({
     input: process.stdin,
