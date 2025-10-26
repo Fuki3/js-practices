@@ -1,0 +1,17 @@
+- MemoApp
+  - constructor(option)
+  - input
+  - choose(lines, message)
+  - output
+- File
+  - constructor
+  - \_save(filename, lines)
+  - \_handleContent(callback)
+  - \_readFirstLine(directoryPath, callback)
+- Memo extends File
+  - constructor
+  - add
+  - delete
+  - print
+  - printAll
+  - #getFirstLines(directoryPath)
