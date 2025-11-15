@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
-export default class File {
+export default class MemoRepository {
   constructor() {
     this.directory = "memos";
   }

@@ -1,14 +1,14 @@
-- MemoApp
+- MemoPrompt
   - constructor(option)
   - input
   - choose(lines, message)
   - output
-- File
+- MemoRepository
   - constructor
   - \_save(filename, lines)
   - \_handleContent(callback)
   - \_readFirstLine(directoryPath, callback)
-- Memo extends File
+- MemoApp extends MemoRepository
   - constructor
   - add
   - delete

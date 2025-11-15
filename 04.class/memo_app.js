@@ -1,15 +1,15 @@
 import fs from "fs/promises";
-import MemoApp from "./memo-app.js";
-import File from "./file.js";
+import MemoPrompt from "./memo_prompt.js";
+import MemoRepository from "./memo_repository.js";
 
-export default class Memo extends File {
+export default class MemoApp extends MemoRepository {
   constructor() {
     super();
-    this.memoapp = new MemoApp();
+    this.memoPrompt = new MemoPrompt();
   }
 
   async add() {
-    const lines = await this.memoapp.input();
+    const lines = await this.memoPrompt.input();
     const filename = lines[0];
     await this._save(filename, lines);
   }
@@ -17,8 +17,8 @@ export default class Memo extends File {
   async delete() {
     const lines = await this.#getFirstLines("./memos");
 
-    const memoapp = new MemoApp();
-    const answer = await memoapp.choose(
+    const memoPrompt = new MemoPrompt();
+    const answer = await memoPrompt.choose(
       lines,
       "Choose a note you want to delete:",
     );
@@ -30,8 +30,8 @@ export default class Memo extends File {
   async printAll() {
     const lines = await this.#getFirstLines("./memos");
 
-    const memoapp = new MemoApp();
-    const answer = await memoapp.choose(
+    const memoPrompt = new MemoPrompt();
+    const answer = await memoPrompt.choose(
       lines,
       "Choose a note you want to see:",
     );
