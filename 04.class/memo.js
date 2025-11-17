@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import MemoPrompt from "./memo_prompt.js";
+import MemoApp from "./memo_app.js";
 
 const option = process.argv.slice(2);
-const memoPrompt = new MemoPrompt(option);
-memoPrompt.output();
+
+const memoApp = new MemoApp();
+memoApp.runOption(option);

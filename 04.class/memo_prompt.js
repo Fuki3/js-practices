@@ -1,11 +1,9 @@
 import readline from "readline";
-import MemoApp from "./memo_app.js";
 import enquirer from "enquirer";
 const { Select } = enquirer;
 
 export default class MemoPrompt {
-  constructor(option) {
-    this.option = option;
+  constructor() {
     this.lines = [];
   }
 
@@ -38,18 +36,5 @@ export default class MemoPrompt {
 
     const answer = await prompt.run();
     return answer;
-  }
-
-  async output() {
-    const memoApp = new MemoApp();
-    if (this.option[0] === "-l") {
-      memoApp.print();
-    } else if (this.option[0] === "-r") {
-      memoApp.printAll();
-    } else if (this.option[0] === "-d") {
-      memoApp.delete();
-    } else {
-      memoApp.add();
-    }
   }
 }

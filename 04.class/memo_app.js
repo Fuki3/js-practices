@@ -43,6 +43,18 @@ export default class MemoApp extends MemoRepository {
     console.log(content);
   }
 
+  runOption(option) {
+    if (option[0] === "-l") {
+      this.print();
+    } else if (option[0] === "-r") {
+      this.printAll();
+    } else if (option[0] === "-d") {
+      this.delete();
+    } else {
+      this.add();
+    }
+  }
+
   async #getFirstLines(directoryPath) {
     const lines = [];
     await this._readFirstLine(directoryPath, (line) => lines.push(line));

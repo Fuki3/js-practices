@@ -1,8 +1,7 @@
 - MemoPrompt
-  - constructor(option)
+  - constructor()
   - input
   - choose(lines, message)
-  - output
 - MemoRepository
   - constructor
   - \_save(filename, lines)
@@ -14,4 +13,5 @@
   - delete
   - print
   - printAll
+  - runOption(option)
   - #getFirstLines(directoryPath)
