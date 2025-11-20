@@ -5,8 +5,7 @@
 - MemoRepository
   - constructor
   - \_save(filename, lines)
-  - \_handleContent(callback)
-  - \_readFirstLine(directoryPath, callback)
+  - \_getFirstLines(directoryPath)
 - MemoApp extends MemoRepository
   - constructor
   - add
@@ -14,4 +13,3 @@
   - print
   - printAll
   - runOption(option)
-  - #getFirstLines(directoryPath)

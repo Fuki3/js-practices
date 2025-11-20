@@ -11,27 +11,21 @@ export default class MemoRepository {
     await fs.writeFile(`./${this.directory}/${filename}.txt`, lines.join("\n"));
   }
 
-  async _handleContent(callback) {
-    try {
-      return await callback();
-    } catch (err) {
-      console.error("Error:", err.message);
-      return null;
-    }
-  }
+  async _getFirstLines(directoryPath) {
+    await fs.mkdir(this.directory, { recursive: true });
+    const files = await fs.readdir(directoryPath);
 
-  async _readFirstLine(directoryPath, callback) {
-    try {
-      await fs.mkdir(this.directory, { recursive: true });
-      const files = await fs.readdir(directoryPath);
-      for (const file of files) {
-        const filePath = path.join(directoryPath, file);
-        const content = await fs.readFile(filePath, "utf8");
-        const firstLine = content.split("\n")[0];
-        await callback(firstLine);
-      }
-    } catch (err) {
-      console.error("Error:", err);
+    const lines = [];
+
+    for (const file of files) {
+      const filePath = path.join(directoryPath, file);
+      const content = await fs.readFile(filePath, "utf8");
+      const firstLine = content.split("\n")[0];
+      lines.push(firstLine);
     }
+    if (lines.length === 0) {
+      process.exit(0);
+    }
+    return lines;
   }
 }

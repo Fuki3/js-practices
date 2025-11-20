@@ -8,12 +8,12 @@ export default class MemoPrompt {
   }
 
   async input() {
-    return new Promise((resolve) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
 
+    await new Promise((resolve, reject) => {
       rl.on("line", (input) => {
         if (input === "") {
           rl.close();
@@ -22,10 +22,11 @@ export default class MemoPrompt {
         }
       });
 
-      rl.on("close", () => {
-        resolve(this.lines);
-      });
+      rl.on("close", resolve);
+      rl.on("error", reject);
     });
+
+    return this.lines;
   }
 
   async choose(lines, message) {

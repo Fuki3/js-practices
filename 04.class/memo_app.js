@@ -15,52 +15,46 @@ export default class MemoApp extends MemoRepository {
   }
 
   async delete() {
-    const lines = await this.#getFirstLines("./memos");
+    const lines = await this._getFirstLines("./memos");
 
     const memoPrompt = new MemoPrompt();
     const answer = await memoPrompt.choose(
       lines,
       "Choose a note you want to delete:",
     );
-    await this._handleContent(() => fs.unlink(`./memos/${answer}.txt`));
+    await fs.unlink(`./memos/${answer}.txt`);
   }
   async print() {
-    await this._readFirstLine("./memos", (line) => console.log(line));
+    const lines = await this._getFirstLines("./memos");
+    for (const line of lines) {
+      console.log(line);
+    }
   }
   async printAll() {
-    const lines = await this.#getFirstLines("./memos");
+    const lines = await this._getFirstLines("./memos");
 
     const memoPrompt = new MemoPrompt();
     const answer = await memoPrompt.choose(
       lines,
       "Choose a note you want to see:",
     );
-
-    const content = await this._handleContent(() =>
-      fs.readFile(`./memos/${answer}.txt`, "utf8"),
-    );
-
+    const content = await fs.readFile(`./memos/${answer}.txt`, "utf8");
     console.log(content);
   }
 
   runOption(option) {
-    if (option[0] === "-l") {
-      this.print();
-    } else if (option[0] === "-r") {
-      this.printAll();
-    } else if (option[0] === "-d") {
-      this.delete();
-    } else {
-      this.add();
+    try {
+      if (option[0] === "-l") {
+        this.print();
+      } else if (option[0] === "-r") {
+        this.printAll();
+      } else if (option[0] === "-d") {
+        this.delete();
+      } else {
+        this.add();
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
     }
-  }
-
-  async #getFirstLines(directoryPath) {
-    const lines = [];
-    await this._readFirstLine(directoryPath, (line) => lines.push(line));
-    if (lines.length === 0) {
-      process.exit(0);
-    }
-    return lines;
   }
 }
