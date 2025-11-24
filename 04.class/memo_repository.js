@@ -23,9 +23,6 @@ export default class MemoRepository {
       const firstLine = content.split("\n")[0];
       lines.push(firstLine);
     }
-    if (lines.length === 0) {
-      process.exit(0);
-    }
     return lines;
   }
 }

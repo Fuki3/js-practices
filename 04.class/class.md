@@ -13,3 +13,5 @@
   - print
   - printAll
   - runOption(option)
+  - \_skipOrChoose(lines, message)
+- NothingAnyMemos extends Error
