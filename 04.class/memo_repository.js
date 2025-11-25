@@ -2,17 +2,13 @@ import fs from "fs/promises";
 import path from "path";
 
 export default class MemoRepository {
-  constructor() {
-    this.directory = "memos";
-  }
-
   async _save(filename, lines) {
-    await fs.mkdir(this.directory, { recursive: true });
-    await fs.writeFile(`./${this.directory}/${filename}.txt`, lines.join("\n"));
+    await fs.mkdir("memos", { recursive: true });
+    await fs.writeFile(`./memos/${filename}.txt`, lines.join("\n"));
   }
 
   async _getFirstLines(directoryPath) {
-    await fs.mkdir(this.directory, { recursive: true });
+    await fs.mkdir("memos", { recursive: true });
     const files = await fs.readdir(directoryPath);
 
     const lines = [];

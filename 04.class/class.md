@@ -3,7 +3,6 @@
   - input
   - choose(lines, message)
 - MemoRepository
-  - constructor
   - \_save(filename, lines)
   - \_getFirstLines(directoryPath)
 - MemoApp extends MemoRepository
