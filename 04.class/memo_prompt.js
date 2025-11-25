@@ -31,7 +31,7 @@ export default class MemoPrompt {
 
   async choose(lines, message) {
     const prompt = new Select({
-      message: message,
+      message,
       choices: lines,
     });
 
