@@ -4,7 +4,7 @@ import path from "path";
 export default class MemoRepository {
   async _save(filename, lines) {
     await fs.mkdir("memos", { recursive: true });
-    await fs.writeFile(`./memos/${filename}.txt`, lines.join("\n"));
+    await fs.writeFile(path.join("memos", `${filename}.txt`), lines.join("\n"));
   }
 
   async _getFirstLines(directoryPath) {

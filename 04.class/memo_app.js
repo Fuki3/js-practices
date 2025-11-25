@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import path from "path";
 import MemoPrompt from "./memo_prompt.js";
 import MemoRepository from "./memo_repository.js";
 import { NothingAnyMemos } from "./nothing_any_memos.js";
@@ -21,7 +22,7 @@ export default class MemoApp extends MemoRepository {
       lines,
       "Choose a memo you want to delete:",
     );
-    await fs.unlink(`./memos/${answer}.txt`);
+    await fs.unlink(path.join("memos", `${answer}.txt`));
   }
   async print() {
     const lines = await this._getFirstLines("./memos");
@@ -36,7 +37,10 @@ export default class MemoApp extends MemoRepository {
       lines,
       "Choose a memo you want to see:",
     );
-    const content = await fs.readFile(`./memos/${answer}.txt`, "utf8");
+    const content = await fs.readFile(
+      path.join("memos", `${answer}.txt`),
+      "utf8",
+    );
     console.log(content);
   }
 
