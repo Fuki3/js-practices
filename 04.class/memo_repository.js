@@ -3,12 +3,12 @@ import path from "path";
 
 export default class MemoRepository {
   async _save(filename, lines) {
-    await fs.mkdir("memos", { recursive: true });
+    await this.#makeDirectory();
     await fs.writeFile(path.join("memos", `${filename}.txt`), lines.join("\n"));
   }
 
   async _getFirstLines(directoryPath) {
-    await fs.mkdir("memos", { recursive: true });
+    await this.#makeDirectory();
     const files = await fs.readdir(directoryPath);
 
     const lines = [];
@@ -20,5 +20,13 @@ export default class MemoRepository {
       lines.push(firstLine);
     }
     return lines;
+  }
+
+  async #makeDirectory() {
+    try {
+      await fs.access("memos");
+    } catch {
+      await fs.mkdir("memos");
+    }
   }
 }

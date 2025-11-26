@@ -4,6 +4,7 @@
 - MemoRepository
   - \_save(filename, lines)
   - \_getFirstLines(directoryPath)
+  - #makeDirectory
 - MemoApp extends MemoRepository
   - constructor
   - add
