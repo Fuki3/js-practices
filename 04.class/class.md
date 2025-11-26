@@ -1,5 +1,4 @@
 - MemoPrompt
-  - constructor()
   - input
   - choose(lines, message)
 - MemoRepository

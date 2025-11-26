@@ -4,11 +4,8 @@ import enquirer from "enquirer";
 const Select = enquirer.Select;
 
 export default class MemoPrompt {
-  constructor() {
-    this.lines = [];
-  }
-
   async input() {
+    const lines = [];
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -19,7 +16,7 @@ export default class MemoPrompt {
         if (input === "") {
           rl.close();
         } else {
-          this.lines.push(input);
+          lines.push(input);
         }
       });
 
@@ -27,7 +24,7 @@ export default class MemoPrompt {
       rl.on("error", reject);
     });
 
-    return this.lines;
+    return lines;
   }
 
   async choose(lines, message) {
