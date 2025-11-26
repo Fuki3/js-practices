@@ -1,6 +1,7 @@
 import readline from "readline";
 import enquirer from "enquirer";
-const { Select } = enquirer;
+
+const Select = enquirer.Select;
 
 export default class MemoPrompt {
   constructor() {
