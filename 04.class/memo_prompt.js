@@ -12,11 +12,7 @@ export default class MemoPrompt {
 
     await new Promise((resolve, reject) => {
       rl.on("line", (input) => {
-        if (input === "") {
-          rl.close();
-        } else {
-          lines.push(input);
-        }
+        lines.push(input);
       });
 
       rl.on("close", resolve);
