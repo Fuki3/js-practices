@@ -22,6 +22,19 @@ export default class MemoRepository {
     return lines;
   }
 
+  async _getFilenames(directoryPath) {
+    await this.#makeDirectory();
+    const files = await fs.readdir(directoryPath);
+
+    const fileNames = [];
+
+    for (const file of files) {
+      fileNames.push(file);
+    }
+
+    return fileNames;
+  }
+
   async #makeDirectory() {
     try {
       await fs.access("memos");

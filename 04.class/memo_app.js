@@ -12,17 +12,17 @@ export default class MemoApp extends MemoRepository {
 
   async add() {
     const lines = await this.memoPrompt.input();
-    const filename = lines[0];
+    const filename = new Date();
     await this._save(filename, lines);
   }
 
   async delete() {
-    const lines = await this._getFirstLines("./memos");
+    const lines = await this._getFilenames("./memos");
     const answer = await this._skipOrChoose(
       lines,
       "Choose a memo you want to delete:",
     );
-    await fs.unlink(path.join("memos", `${answer}.txt`));
+    await fs.unlink(path.join("memos", `${answer}`));
   }
   async print() {
     const lines = await this._getFirstLines("./memos");
@@ -31,16 +31,13 @@ export default class MemoApp extends MemoRepository {
     }
   }
   async printAll() {
-    const lines = await this._getFirstLines("./memos");
+    const lines = await this._getFilenames("./memos");
 
     const answer = await this._skipOrChoose(
       lines,
       "Choose a memo you want to see:",
     );
-    const content = await fs.readFile(
-      path.join("memos", `${answer}.txt`),
-      "utf8",
-    );
+    const content = await fs.readFile(path.join("memos", `${answer}`), "utf8");
     console.log(content);
   }
 
