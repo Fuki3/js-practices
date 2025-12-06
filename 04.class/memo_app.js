@@ -24,12 +24,14 @@ export default class MemoApp extends MemoRepository {
     );
     await fs.unlink(path.join("memos", `${answer}`));
   }
+
   async refer() {
     const lines = await this._getFirstLines("./memos");
     for (const line of lines) {
       console.log(line);
     }
   }
+
   async showTheList() {
     const lines = await this._getFilenames("./memos");
 
