@@ -24,13 +24,13 @@ export default class MemoApp extends MemoRepository {
     );
     await fs.unlink(path.join("memos", `${answer}`));
   }
-  async print() {
+  async refer() {
     const lines = await this._getFirstLines("./memos");
     for (const line of lines) {
       console.log(line);
     }
   }
-  async printAll() {
+  async showTheList() {
     const lines = await this._getFilenames("./memos");
 
     const answer = await this._skipOrChoose(
@@ -41,12 +41,12 @@ export default class MemoApp extends MemoRepository {
     console.log(content);
   }
 
-  async runOption(option) {
-    if (option[0] === "-l") {
-      await this.print();
-    } else if (option[0] === "-r") {
-      await this.printAll();
-    } else if (option[0] === "-d") {
+  async runOption(args) {
+    if (args[0] === "-l") {
+      await this.refer();
+    } else if (args[0] === "-r") {
+      await this.showTheList();
+    } else if (args[0] === "-d") {
       await this.delete();
     } else {
       await this.add();

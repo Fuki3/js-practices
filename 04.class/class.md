@@ -10,8 +10,8 @@
   - constructor
   - add
   - delete
-  - print
-  - printAll
-  - runOption(option)
+  - refer
+  - showTheList
+  - runOption(args)
   - \_skipOrChoose(lines, message)
 - NothingAnyMemos extends Error

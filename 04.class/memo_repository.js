@@ -26,13 +26,13 @@ export default class MemoRepository {
     await this.#makeDirectory();
     const files = await fs.readdir(directoryPath);
 
-    const fileNames = [];
+    const filenames = [];
 
     for (const file of files) {
-      fileNames.push(file);
+      filenames.push(file);
     }
 
-    return fileNames;
+    return filenames;
   }
 
   async #makeDirectory() {
