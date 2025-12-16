@@ -25,10 +25,12 @@ export default class MemoPrompt {
   async choose(lines, message) {
     const prompt = new Select({
       message,
-      choices: lines,
+      choices: lines.map((line) => ({
+        name: line.file,
+        message: line.firstLine,
+      })),
     });
 
-    const answer = await prompt.run();
-    return answer;
+    return await prompt.run();
   }
 }

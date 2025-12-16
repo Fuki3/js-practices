@@ -17,22 +17,9 @@ export default class MemoRepository {
       const filePath = path.join(directoryPath, file);
       const content = await fs.readFile(filePath, "utf8");
       const firstLine = content.split("\n")[0];
-      lines.push(firstLine);
+      lines.push({ file, firstLine });
     }
     return lines;
-  }
-
-  async _getFilenames(directoryPath) {
-    await this.#makeDirectory();
-    const files = await fs.readdir(directoryPath);
-
-    const filenames = [];
-
-    for (const file of files) {
-      filenames.push(file);
-    }
-
-    return filenames;
   }
 
   async #makeDirectory() {
