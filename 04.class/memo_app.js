@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import MemoPrompt from "./memo_prompt.js";
 import MemoRepository from "./memo_repository.js";
-import { NothingAnyMemos } from "./nothing_any_memos.js";
+import NoMemoError from "./no_memo_error.js";
 
 export default class MemoApp extends MemoRepository {
   constructor() {
@@ -59,7 +59,7 @@ export default class MemoApp extends MemoRepository {
 
   async _skipOrChoose(lines, message) {
     if (lines.length === 0) {
-      throw new NothingAnyMemos();
+      throw new NoMemoError();
     }
     const memoPrompt = new MemoPrompt();
     return await memoPrompt.choose(lines, message);
