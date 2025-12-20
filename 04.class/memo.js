@@ -10,9 +10,8 @@ const memoApp = new MemoApp();
 try {
   await memoApp.runOption(args);
 } catch (error) {
-  if (error instanceof NoMemoError) {
-    process.exit(0);
+  if (!(error instanceof NoMemoError)) {
+    console.error("Error", error);
+    process.exit(1);
   }
-  console.error("Error", error);
-  process.exit(1);
 }
