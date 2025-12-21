@@ -2,10 +2,10 @@
   - input
   - choose(lines, message)
 - MemoRepository
-  - \_save(filename, lines)
-  - \_getFirstLines(directoryPath)
+  - save(filename, lines)
+  - getFirstLines(directoryPath)
   - #makeDirectory
-- MemoApp extends MemoRepository
+- MemoApp
   - constructor
   - add
   - delete

@@ -4,20 +4,20 @@ import MemoPrompt from "./memo_prompt.js";
 import MemoRepository from "./memo_repository.js";
 import NoMemoError from "./no_memo_error.js";
 
-export default class MemoApp extends MemoRepository {
+export default class MemoApp {
   constructor() {
-    super();
+    this.memoRepository = new MemoRepository();
     this.memoPrompt = new MemoPrompt();
   }
 
   async add() {
     const lines = await this.memoPrompt.input();
     const filename = new Date();
-    await this._save(filename, lines);
+    await this.memoRepository.save(filename, lines);
   }
 
   async delete() {
-    const lines = await this._getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines("./memos");
     const fileToDelete = await this._skipOrChoose(
       lines,
       "Choose a memo you want to delete:",
@@ -26,14 +26,14 @@ export default class MemoApp extends MemoRepository {
   }
 
   async refer() {
-    const lines = await this._getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines("./memos");
     for (const line of lines) {
       console.log(line.firstLine);
     }
   }
 
   async showTheList() {
-    const lines = await this._getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines("./memos");
     const fileToShow = await this._skipOrChoose(
       lines,
       "Choose a memo you want to see:",

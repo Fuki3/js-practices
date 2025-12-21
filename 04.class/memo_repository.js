@@ -2,12 +2,12 @@ import fs from "fs/promises";
 import path from "path";
 
 export default class MemoRepository {
-  async _save(filename, lines) {
+  async save(filename, lines) {
     await this.#makeDirectory();
     await fs.writeFile(path.join("memos", `${filename}.txt`), lines.join("\n"));
   }
 
-  async _getFirstLines(directoryPath) {
+  async getFirstLines(directoryPath) {
     await this.#makeDirectory();
     const files = await fs.readdir(directoryPath);
 
