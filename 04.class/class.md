@@ -7,10 +7,10 @@
   - #makeDirectory
 - MemoApp
   - constructor
-  - add
-  - delete
-  - refer
-  - showTheList
   - runOption(args)
-  - \_skipOrChoose(lines, message)
+  - #add
+  - #delete
+  - #refer
+  - #showTheList
+  - #skipOrChoose(lines, message)
 - NoMemoError extends Error

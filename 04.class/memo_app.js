@@ -10,31 +10,43 @@ export default class MemoApp {
     this.memoPrompt = new MemoPrompt();
   }
 
-  async add() {
+  async runOption(args) {
+    if (args[0] === "-l") {
+      await this.#refer();
+    } else if (args[0] === "-r") {
+      await this.#showTheList();
+    } else if (args[0] === "-d") {
+      await this.#delete();
+    } else {
+      await this.#add();
+    }
+  }
+
+  async #add() {
     const lines = await this.memoPrompt.input();
     const filename = new Date();
     await this.memoRepository.save(filename, lines);
   }
 
-  async delete() {
+  async #delete() {
     const lines = await this.memoRepository.getFirstLines("./memos");
-    const fileToDelete = await this._skipOrChoose(
+    const fileToDelete = await this.#skipOrChoose(
       lines,
       "Choose a memo you want to delete:",
     );
     await fs.unlink(path.join("memos", fileToDelete));
   }
 
-  async refer() {
+  async #refer() {
     const lines = await this.memoRepository.getFirstLines("./memos");
     for (const line of lines) {
       console.log(line.firstLine);
     }
   }
 
-  async showTheList() {
+  async #showTheList() {
     const lines = await this.memoRepository.getFirstLines("./memos");
-    const fileToShow = await this._skipOrChoose(
+    const fileToShow = await this.#skipOrChoose(
       lines,
       "Choose a memo you want to see:",
     );
@@ -45,19 +57,7 @@ export default class MemoApp {
     console.log(content);
   }
 
-  async runOption(args) {
-    if (args[0] === "-l") {
-      await this.refer();
-    } else if (args[0] === "-r") {
-      await this.showTheList();
-    } else if (args[0] === "-d") {
-      await this.delete();
-    } else {
-      await this.add();
-    }
-  }
-
-  async _skipOrChoose(lines, message) {
+  async #skipOrChoose(lines, message) {
     if (lines.length === 0) {
       throw new NoMemoError();
     }
