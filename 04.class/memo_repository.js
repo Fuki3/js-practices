@@ -10,15 +10,14 @@ export default class MemoRepository {
   async getFirstLines(directoryPath) {
     await this.#makeDirectory();
     const files = await fs.readdir(directoryPath);
-
-    const lines = [];
-
-    for (const file of files) {
-      const filePath = path.join(directoryPath, file);
-      const content = await fs.readFile(filePath, "utf8");
-      const firstLine = content.split("\n")[0];
-      lines.push({ file, firstLine });
-    }
+    const lines = await Promise.all(
+      files.map(async (file) => {
+        const filePath = path.join(directoryPath, file);
+        const content = await fs.readFile(filePath, "utf8");
+        const firstLine = content.split("\n")[0];
+        return { file, firstLine };
+      }),
+    );
     return lines;
   }
 
