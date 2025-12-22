@@ -61,7 +61,6 @@ export default class MemoApp {
     if (lines.length === 0) {
       throw new NoMemoError();
     }
-    const memoPrompt = new MemoPrompt();
-    return await memoPrompt.choose(lines, message);
+    return await this.memoPrompt.choose(lines, message);
   }
 }
