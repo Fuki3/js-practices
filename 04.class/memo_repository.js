@@ -24,8 +24,12 @@ export default class MemoRepository {
   async #makeDirectory() {
     try {
       await fs.access("memos");
-    } catch {
-      await fs.mkdir("memos");
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        await fs.mkdir("memos");
+      } else {
+        throw error;
+      }
     }
   }
 }
