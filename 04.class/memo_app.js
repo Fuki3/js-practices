@@ -29,7 +29,7 @@ export default class MemoApp {
   }
 
   async #delete() {
-    const lines = await this.memoRepository.getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines();
     const fileToDelete = await this.#skipOrChoose(
       lines,
       "Choose a memo you want to delete:",
@@ -38,22 +38,19 @@ export default class MemoApp {
   }
 
   async #refer() {
-    const lines = await this.memoRepository.getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines();
     for (const line of lines) {
       console.log(line.firstLine);
     }
   }
 
   async #showTheList() {
-    const lines = await this.memoRepository.getFirstLines("./memos");
+    const lines = await this.memoRepository.getFirstLines();
     const fileToShow = await this.#skipOrChoose(
       lines,
       "Choose a memo you want to see:",
     );
-    const content = await fs.readFile(
-      path.join("memos", `${fileToShow}`),
-      "utf8",
-    );
+    const content = await this.memoRepository.readContent(fileToShow);
     console.log(content);
   }
 

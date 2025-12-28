@@ -3,7 +3,8 @@
   - choose(lines, message)
 - MemoRepository
   - save(filename, lines)
-  - getFirstLines(directoryPath)
+  - getFirstLines()
+  - readContent(file)
   - #makeDirectory
 - MemoApp
   - constructor
