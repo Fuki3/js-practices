@@ -10,12 +10,12 @@ export default class MemoApp {
     this.memoPrompt = new MemoPrompt();
   }
 
-  async runOption(args) {
-    if (args[0] === "-l") {
+  async handleOption(commandArguments) {
+    if (commandArguments[0] === "-l") {
       await this.#refer();
-    } else if (args[0] === "-r") {
-      await this.#showTheList();
-    } else if (args[0] === "-d") {
+    } else if (commandArguments[0] === "-r") {
+      await this.#showFirstLines();
+    } else if (commandArguments[0] === "-d") {
       await this.#delete();
     } else {
       await this.#add();
@@ -29,35 +29,35 @@ export default class MemoApp {
   }
 
   async #delete() {
-    const lines = await this.memoRepository.getFirstLines();
-    const fileToDelete = await this.#skipOrChoose(
-      lines,
+    const firstLines = await this.memoRepository.getFirstLines();
+    const fileToDelete = await this.#chooseOrSkip(
+      firstLines,
       "Choose a memo you want to delete:",
     );
     await fs.unlink(path.join("memos", fileToDelete));
   }
 
   async #refer() {
-    const lines = await this.memoRepository.getFirstLines();
-    for (const line of lines) {
-      console.log(line.firstLine);
+    const firstLines = await this.memoRepository.getFirstLines();
+    for (const firstLine of firstLines) {
+      console.log(firstLine.firstLine);
     }
   }
 
-  async #showTheList() {
-    const lines = await this.memoRepository.getFirstLines();
-    const fileToShow = await this.#skipOrChoose(
-      lines,
+  async #showFirstLines() {
+    const firstLines = await this.memoRepository.getFirstLines();
+    const fileToShow = await this.#chooseOrSkip(
+      firstLines,
       "Choose a memo you want to see:",
     );
     const content = await this.memoRepository.readContent(fileToShow);
     console.log(content);
   }
 
-  async #skipOrChoose(lines, message) {
-    if (lines.length === 0) {
+  async #chooseOrSkip(firstLines, message) {
+    if (firstLines.length === 0) {
       throw new NoMemoError();
     }
-    return await this.memoPrompt.choose(lines, message);
+    return await this.memoPrompt.choose(firstLines, message);
   }
 }

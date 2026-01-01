@@ -3,26 +3,28 @@ import path from "path";
 
 export default class MemoRepository {
   async save(filename, lines) {
+    const filePath = path.join("memos", `${filename}.txt`);
     await this.#makeDirectory();
-    await fs.writeFile(path.join("memos", `${filename}.txt`), lines.join("\n"));
+    await fs.writeFile(filePath, lines.join("\n"));
   }
 
   async getFirstLines() {
     await this.#makeDirectory();
-    const files = await fs.readdir("./memos");
-    const lines = await Promise.all(
-      files.map(async (file) => {
-        const filePath = path.join("./memos", file);
+    const filenames = await fs.readdir("./memos");
+    const firstLines = await Promise.all(
+      filenames.map(async (filename) => {
+        const filePath = path.join("./memos", filename);
         const content = await fs.readFile(filePath, "utf8");
         const firstLine = content.split("\n")[0];
-        return { file, firstLine };
+        return { filename, firstLine };
       }),
     );
-    return lines;
+    return firstLines;
   }
 
-  readContent(file) {
-    return fs.readFile(path.join("memos", file), "utf8");
+  readContent(filename) {
+    const filePath = path.join("./memos", filename);
+    return fs.readFile(filePath, "utf8");
   }
 
   async #makeDirectory() {

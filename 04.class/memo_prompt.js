@@ -1,8 +1,6 @@
 import readline from "readline";
 import enquirer from "enquirer";
 
-const Select = enquirer.Select;
-
 export default class MemoPrompt {
   async input() {
     const lines = [];
@@ -22,12 +20,12 @@ export default class MemoPrompt {
     return lines;
   }
 
-  async choose(lines, message) {
-    const prompt = new Select({
+  async choose(firstLines, message) {
+    const prompt = new enquirer.Select({
       message,
-      choices: lines.map((line) => ({
-        name: line.file,
-        message: line.firstLine,
+      choices: firstLines.map((firstLine) => ({
+        name: firstLine.filename,
+        message: firstLine.firstLine,
       })),
     });
 

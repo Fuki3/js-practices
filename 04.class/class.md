@@ -8,10 +8,10 @@
   - #makeDirectory
 - MemoApp
   - constructor
-  - runOption(args)
+  - handleOption(commandArguments)
   - #add
   - #delete
   - #refer
-  - #showTheList
+  - #showFirstLines
   - #skipOrChoose(lines, message)
 - NoMemoError extends Error
