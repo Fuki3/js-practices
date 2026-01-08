@@ -1,10 +1,12 @@
-- MemoPrompt
+- MemoUli
   - input
   - choose(lines, message)
+  - output(text)
 - MemoRepository
-  - save(filename, lines)
+  - save(lines)
   - getFirstLines()
-  - readContent(file)
+  - delete(filename)
+  - readContent(filename)
   - #makeDirectory
 - MemoApp
   - constructor
@@ -13,5 +15,5 @@
   - #delete
   - #refer
   - #showFirstLines
-  - #skipOrChoose(lines, message)
+  - #skipOrChoose(firstlines, message)
 - NoMemoError extends Error

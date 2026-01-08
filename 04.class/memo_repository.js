@@ -2,8 +2,8 @@ import fs from "fs/promises";
 import path from "path";
 
 export default class MemoRepository {
-  async save(filename, lines) {
-    const filePath = path.join("memos", `${filename}.txt`);
+  async save(lines) {
+    const filePath = path.join("memos", `${new Date()}.txt`);
     await this.#makeDirectory();
     await fs.writeFile(filePath, lines.join("\n"));
   }
@@ -20,6 +20,10 @@ export default class MemoRepository {
       }),
     );
     return firstLines;
+  }
+
+  delete(filename) {
+    fs.unlink(path.join("memos", filename));
   }
 
   readContent(filename) {

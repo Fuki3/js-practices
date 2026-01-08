@@ -1,13 +1,11 @@
-import fs from "fs/promises";
-import path from "path";
-import MemoPrompt from "./memo_prompt.js";
+import MemoCli from "./memo_cli.js";
 import MemoRepository from "./memo_repository.js";
 import NoMemoError from "./no_memo_error.js";
 
 export default class MemoApp {
   constructor() {
     this.memoRepository = new MemoRepository();
-    this.memoPrompt = new MemoPrompt();
+    this.memoCli = new MemoCli();
   }
 
   async handleOption(commandArguments) {
@@ -23,9 +21,8 @@ export default class MemoApp {
   }
 
   async #add() {
-    const lines = await this.memoPrompt.input();
-    const filename = new Date();
-    await this.memoRepository.save(filename, lines);
+    const lines = await this.memoCli.input();
+    await this.memoRepository.save(lines);
   }
 
   async #delete() {
@@ -34,13 +31,13 @@ export default class MemoApp {
       firstLines,
       "Choose a memo you want to delete:",
     );
-    await fs.unlink(path.join("memos", fileToDelete));
+    this.memoRepository.delete(fileToDelete);
   }
 
   async #refer() {
     const firstLines = await this.memoRepository.getFirstLines();
     for (const firstLine of firstLines) {
-      console.log(firstLine.firstLine);
+      this.memoCli.output(firstLine.firstLine);
     }
   }
 
@@ -51,13 +48,13 @@ export default class MemoApp {
       "Choose a memo you want to see:",
     );
     const content = await this.memoRepository.readContent(fileToShow);
-    console.log(content);
+    this.memoCli.output(content);
   }
 
   async #chooseOrSkip(firstLines, message) {
     if (firstLines.length === 0) {
       throw new NoMemoError();
     }
-    return await this.memoPrompt.choose(firstLines, message);
+    return await this.memoCli.choose(firstLines, message);
   }
 }
