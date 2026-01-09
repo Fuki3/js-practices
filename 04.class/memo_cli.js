@@ -2,6 +2,10 @@ import readline from "readline";
 import enquirer from "enquirer";
 
 export default class MemoCli {
+  output(text) {
+    console.log(text);
+  }
+
   async input() {
     const lines = [];
     const rl = readline.createInterface({
@@ -30,9 +34,5 @@ export default class MemoCli {
     });
 
     return await prompt.run();
-  }
-
-  output(text) {
-    console.log(text);
   }
 }

@@ -1,19 +1,19 @@
 - MemoUli
-  - input
-  - choose(lines, message)
   - output(text)
+  - input
+  - choose(firstLines, message)
 - MemoRepository
-  - save(lines)
   - getMemoSummaries()
-  - delete(filename)
   - readContent(filename)
+  - delete(filename)
+  - save(lines)
   - #makeDirectory
 - MemoApp
   - constructor
   - runCommand(commandArguments)
-  - #add
-  - #delete
   - #refer
   - #showFullText
-  - #skipOrChoose(firstlines, message)
+  - #delete
+  - #add
+  - #skipOrChoose(firstLines, message)
 - NoMemoError extends Error

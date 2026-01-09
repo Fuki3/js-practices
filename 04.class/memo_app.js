@@ -20,20 +20,6 @@ export default class MemoApp {
     }
   }
 
-  async #add() {
-    const lines = await this.memoCli.input();
-    await this.memoRepository.save(lines);
-  }
-
-  async #delete() {
-    const memoSummaries = await this.memoRepository.getMemoSummaries();
-    const fileToDelete = await this.#chooseOrSkip(
-      memoSummaries,
-      "Choose a memo you want to delete:",
-    );
-    this.memoRepository.delete(fileToDelete);
-  }
-
   async #refer() {
     const memoSummaries = await this.memoRepository.getMemoSummaries();
     for (const memoSummary of memoSummaries) {
@@ -49,6 +35,20 @@ export default class MemoApp {
     );
     const content = await this.memoRepository.readContent(fileToShow);
     this.memoCli.output(content);
+  }
+
+  async #delete() {
+    const memoSummaries = await this.memoRepository.getMemoSummaries();
+    const fileToDelete = await this.#chooseOrSkip(
+      memoSummaries,
+      "Choose a memo you want to delete:",
+    );
+    this.memoRepository.delete(fileToDelete);
+  }
+
+  async #add() {
+    const lines = await this.memoCli.input();
+    await this.memoRepository.save(lines);
   }
 
   async #chooseOrSkip(firstLines, message) {

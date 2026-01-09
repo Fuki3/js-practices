@@ -2,12 +2,6 @@ import fs from "fs/promises";
 import path from "path";
 
 export default class MemoRepository {
-  async save(lines) {
-    const filePath = path.join("memos", `${new Date()}.txt`);
-    await this.#makeDirectory();
-    await fs.writeFile(filePath, lines.join("\n"));
-  }
-
   async getMemoSummaries() {
     await this.#makeDirectory();
     const filenames = await fs.readdir("./memos");
@@ -22,13 +16,19 @@ export default class MemoRepository {
     return memoSummaries;
   }
 
+  readContent(filename) {
+    const filePath = path.join("./memos", filename);
+    return fs.readFile(filePath, "utf8");
+  }
+
   delete(filename) {
     fs.unlink(path.join("memos", filename));
   }
 
-  readContent(filename) {
-    const filePath = path.join("./memos", filename);
-    return fs.readFile(filePath, "utf8");
+  async save(lines) {
+    const filePath = path.join("memos", `${new Date()}.txt`);
+    await this.#makeDirectory();
+    await fs.writeFile(filePath, lines.join("\n"));
   }
 
   async #makeDirectory() {
