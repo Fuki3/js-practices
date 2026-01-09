@@ -8,10 +8,10 @@ export default class MemoRepository {
     await fs.writeFile(filePath, lines.join("\n"));
   }
 
-  async getFirstLines() {
+  async getMemoSummaries() {
     await this.#makeDirectory();
     const filenames = await fs.readdir("./memos");
-    const firstLines = await Promise.all(
+    const memoSummaries = await Promise.all(
       filenames.map(async (filename) => {
         const filePath = path.join("./memos", filename);
         const content = await fs.readFile(filePath, "utf8");
@@ -19,7 +19,7 @@ export default class MemoRepository {
         return { filename, firstLine };
       }),
     );
-    return firstLines;
+    return memoSummaries;
   }
 
   delete(filename) {

@@ -8,11 +8,11 @@ export default class MemoApp {
     this.memoCli = new MemoCli();
   }
 
-  async handleOption(commandArguments) {
+  async runCommand(commandArguments) {
     if (commandArguments[0] === "-l") {
       await this.#refer();
     } else if (commandArguments[0] === "-r") {
-      await this.#showFirstLines();
+      await this.#showFullText();
     } else if (commandArguments[0] === "-d") {
       await this.#delete();
     } else {
@@ -26,25 +26,25 @@ export default class MemoApp {
   }
 
   async #delete() {
-    const firstLines = await this.memoRepository.getFirstLines();
+    const memoSummaries = await this.memoRepository.getMemoSummaries();
     const fileToDelete = await this.#chooseOrSkip(
-      firstLines,
+      memoSummaries,
       "Choose a memo you want to delete:",
     );
     this.memoRepository.delete(fileToDelete);
   }
 
   async #refer() {
-    const firstLines = await this.memoRepository.getFirstLines();
-    for (const firstLine of firstLines) {
-      this.memoCli.output(firstLine.firstLine);
+    const memoSummaries = await this.memoRepository.getMemoSummaries();
+    for (const memoSummary of memoSummaries) {
+      this.memoCli.output(memoSummary.firstLine);
     }
   }
 
-  async #showFirstLines() {
-    const firstLines = await this.memoRepository.getFirstLines();
+  async #showFullText() {
+    const memoSummaries = await this.memoRepository.getMemoSummaries();
     const fileToShow = await this.#chooseOrSkip(
-      firstLines,
+      memoSummaries,
       "Choose a memo you want to see:",
     );
     const content = await this.memoRepository.readContent(fileToShow);

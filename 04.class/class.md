@@ -4,16 +4,16 @@
   - output(text)
 - MemoRepository
   - save(lines)
-  - getFirstLines()
+  - getMemoSummaries()
   - delete(filename)
   - readContent(filename)
   - #makeDirectory
 - MemoApp
   - constructor
-  - handleOption(commandArguments)
+  - runCommand(commandArguments)
   - #add
   - #delete
   - #refer
-  - #showFirstLines
+  - #showFullText
   - #skipOrChoose(firstlines, message)
 - NoMemoError extends Error
