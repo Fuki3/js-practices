@@ -24,15 +24,18 @@ export default class MemoCli {
     return lines;
   }
 
-  async choose(firstLines, message) {
+  async choose(memoSummaries, message) {
     const prompt = new enquirer.Select({
       message,
-      choices: firstLines.map((firstLine) => ({
-        name: firstLine.filename,
-        message: firstLine.firstLine,
+      choices: memoSummaries.map((memoSummary) => ({
+        message: memoSummary.content.split("\n")[0],
+        memo: memoSummary,
       })),
-    });
 
+      result(value) {
+        return this.choices.find((choice) => choice.value === value).memo;
+      },
+    });
     return await prompt.run();
   }
 }

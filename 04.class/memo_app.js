@@ -23,7 +23,7 @@ export default class MemoApp {
   async #refer() {
     const memoSummaries = await this.memoRepository.getMemoSummaries();
     for (const memoSummary of memoSummaries) {
-      this.memoCli.output(memoSummary.firstLine);
+      this.memoCli.output(memoSummary.content.split("\n")[0]);
     }
   }
 
@@ -33,8 +33,7 @@ export default class MemoApp {
       memoSummaries,
       "Choose a memo you want to see:",
     );
-    const content = await this.memoRepository.readContent(fileToShow);
-    this.memoCli.output(content);
+    this.memoCli.output(fileToShow.content);
   }
 
   async #delete() {
@@ -51,10 +50,10 @@ export default class MemoApp {
     await this.memoRepository.save(lines);
   }
 
-  async #chooseOrSkip(firstLines, message) {
-    if (firstLines.length === 0) {
+  async #chooseOrSkip(memoSummaries, message) {
+    if (memoSummaries.length === 0) {
       throw new NoMemoError();
     }
-    return await this.memoCli.choose(firstLines, message);
+    return await this.memoCli.choose(memoSummaries, message);
   }
 }

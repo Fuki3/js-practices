@@ -4,10 +4,14 @@
   - choose(firstLines, message)
 - MemoRepository
   - getMemoSummaries()
-  - readContent(filename)
-  - delete(filename)
+  - delete(memoSummary)
   - save(lines)
-  - #makeDirectory
+  - #makeDirectory()
+  - #filenameToId(filename)
+  - #idToFilename(id)
+  - #deleteFileList(id)
+  - #addFileList(filename)
+  - #loadFileList()
 - MemoApp
   - constructor
   - runCommand(commandArguments)
