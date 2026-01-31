@@ -29,10 +29,11 @@ export default class MemoRepository {
 
   async save(lines) {
     await this.#makeDirectory();
-    const filename = `${new Date()}.txt`;
+    const id = randomUUID();
+    const filename = `${lines[0]}_${id}.txt`;
     const filePath = path.join("memos", filename);
     await fs.writeFile(filePath, lines.join("\n"));
-    await this.#addFileList(filename);
+    await this.#addFileList(filename, id);
   }
 
   async #makeDirectory() {
@@ -67,7 +68,7 @@ export default class MemoRepository {
     );
   }
 
-  async #addFileList(filename) {
+  async #addFileList(filename, id) {
     let fileList = {};
     try {
       fileList = JSON.parse(await fs.readFile(this.fileListFilePath, "utf8"));
@@ -76,7 +77,7 @@ export default class MemoRepository {
         throw error;
       }
     }
-    fileList[randomUUID()] = filename;
+    fileList[id] = filename;
     await fs.writeFile(
       this.fileListFilePath,
       JSON.stringify(fileList, null, 2) + "\n",
