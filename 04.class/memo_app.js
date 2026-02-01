@@ -8,38 +8,38 @@ export default class MemoApp {
     this.memoCli = new MemoCli();
   }
 
-  async runCommand(commandArguments) {
-    if (commandArguments[0] === "-l") {
-      await this.#refer();
-    } else if (commandArguments[0] === "-r") {
+  async runCommand(options) {
+    if (options[0] === "-l") {
+      await this.#showFirstLines();
+    } else if (options[0] === "-r") {
       await this.#showFullText();
-    } else if (commandArguments[0] === "-d") {
+    } else if (options[0] === "-d") {
       await this.#delete();
     } else {
       await this.#add();
     }
   }
 
-  async #refer() {
-    const memoSummaries = await this.memoRepository.getMemoSummaries();
-    for (const memoSummary of memoSummaries) {
-      this.memoCli.output(memoSummary.content.split("\n")[0]);
+  async #showFirstLines() {
+    const summaries = await this.memoRepository.getSummaries();
+    for (const summary of summaries) {
+      this.memoCli.print(summary.content.split("\n")[0]);
     }
   }
 
   async #showFullText() {
-    const memoSummaries = await this.memoRepository.getMemoSummaries();
+    const summaries = await this.memoRepository.getSummaries();
     const fileToShow = await this.#chooseOrSkip(
-      memoSummaries,
+      summaries,
       "Choose a memo you want to see:",
     );
-    this.memoCli.output(fileToShow.content);
+    this.memoCli.print(fileToShow.content);
   }
 
   async #delete() {
-    const memoSummaries = await this.memoRepository.getMemoSummaries();
+    const summaries = await this.memoRepository.getSummaries();
     const fileToDelete = await this.#chooseOrSkip(
-      memoSummaries,
+      summaries,
       "Choose a memo you want to delete:",
     );
     this.memoRepository.delete(fileToDelete);
@@ -50,10 +50,10 @@ export default class MemoApp {
     await this.memoRepository.save(lines);
   }
 
-  async #chooseOrSkip(memoSummaries, message) {
-    if (memoSummaries.length === 0) {
+  async #chooseOrSkip(summaries, message) {
+    if (summaries.length === 0) {
       throw new NoMemoError();
     }
-    return await this.memoCli.choose(memoSummaries, message);
+    return await this.memoCli.choose(summaries, message);
   }
 }

@@ -4,44 +4,45 @@ import { randomUUID } from "crypto";
 
 export default class MemoRepository {
   constructor() {
+    this.memosDirectoryPath = "./memos";
     this.fileListFilePath = "./fileList.json";
   }
 
-  async getMemoSummaries() {
+  async getSummaries() {
     await this.#makeDirectory();
-    const filenames = await fs.readdir("./memos");
-    const memoSummaries = await Promise.all(
+    const filenames = await fs.readdir(this.memosDirectoryPath);
+    const summaries = await Promise.all(
       filenames.map(async (filename) => {
-        const filePath = path.join("./memos", filename);
+        const filePath = path.join(this.memosDirectoryPath, filename);
         const content = await fs.readFile(filePath, "utf8");
         const id = await this.#filenameToId(filename);
         return { id, content };
       }),
     );
-    return memoSummaries;
+    return summaries;
   }
 
-  async delete(memoSummary) {
-    const filename = await this.#idToFilename(memoSummary.id);
-    await this.#deleteFileList(memoSummary.id);
-    await fs.unlink(path.join("memos", filename));
+  async delete(summary) {
+    const filename = await this.#idToFilename(summary.id);
+    await this.#deleteFileList(summary.id);
+    await fs.unlink(path.join(this.memosDirectoryPath, filename));
   }
 
   async save(lines) {
     await this.#makeDirectory();
     const id = randomUUID();
     const filename = `${lines[0]}_${id}.txt`;
-    const filePath = path.join("memos", filename);
+    const filePath = path.join(this.memosDirectoryPath, filename);
     await fs.writeFile(filePath, lines.join("\n"));
     await this.#addFileList(filename, id);
   }
 
   async #makeDirectory() {
     try {
-      await fs.access("memos");
+      await fs.access(this.memosDirectoryPath);
     } catch (error) {
       if (error.code === "ENOENT") {
-        await fs.mkdir("memos");
+        await fs.mkdir(this.memosDirectoryPath);
       } else {
         throw error;
       }

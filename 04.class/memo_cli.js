@@ -2,7 +2,7 @@ import readline from "readline";
 import enquirer from "enquirer";
 
 export default class MemoCli {
-  output(text) {
+  print(text) {
     console.log(text);
   }
 
@@ -24,12 +24,12 @@ export default class MemoCli {
     return lines;
   }
 
-  async choose(memoSummaries, message) {
+  async choose(summaries, message) {
     const prompt = new enquirer.Select({
       message,
-      choices: memoSummaries.map((memoSummary) => ({
-        message: memoSummary.content.split("\n")[0],
-        memo: memoSummary,
+      choices: summaries.map((summary) => ({
+        message: summary.content.split("\n")[0],
+        memo: summary,
       })),
 
       result(value) {
