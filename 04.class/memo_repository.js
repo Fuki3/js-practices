@@ -14,8 +14,9 @@ export default class MemoRepository {
     const summaries = await Promise.all(
       filenames.map(async (filename) => {
         const filePath = path.join(this.memosDirectoryPath, filename);
-        const content = await fs.readFile(filePath, "utf8");
-        const id = await this.#filenameToId(filename);
+        const memo = JSON.parse(await fs.readFile(filePath, "utf8"));
+        const id = memo.id;
+        const content = memo.content;
         return { id, content };
       }),
     );
@@ -23,8 +24,7 @@ export default class MemoRepository {
   }
 
   async delete(summary) {
-    const filename = await this.#idToFilename(summary.id);
-    await this.#deleteFileList(summary.id);
+    const filename = `${summary.content.split("\n")[0]}_${summary.id}.txt`;
     await fs.unlink(path.join(this.memosDirectoryPath, filename));
   }
 
@@ -32,9 +32,13 @@ export default class MemoRepository {
     await this.#makeDirectory();
     const id = randomUUID();
     const filename = `${lines[0]}_${id}.txt`;
+    const content = lines.join("\n");
     const filePath = path.join(this.memosDirectoryPath, filename);
-    await fs.writeFile(filePath, lines.join("\n"));
-    await this.#addFileList(filename, id);
+    const memo = {
+      id,
+      content,
+    };
+    await fs.writeFile(filePath, JSON.stringify(memo, null, 2));
   }
 
   async #makeDirectory() {
@@ -47,46 +51,5 @@ export default class MemoRepository {
         throw error;
       }
     }
-  }
-
-  async #filenameToId(filename) {
-    const fileList = await this.#loadFileList();
-    return Object.keys(fileList).find((key) => fileList[key] === filename);
-  }
-
-  async #idToFilename(id) {
-    const fileList = await this.#loadFileList();
-    return fileList[id];
-  }
-
-  async #deleteFileList(id) {
-    const fileList = await this.#loadFileList();
-    delete fileList[id];
-    return await fs.writeFile(
-      this.fileListFilePath,
-      JSON.stringify(fileList, null, 2) + "\n",
-      "utf8",
-    );
-  }
-
-  async #addFileList(filename, id) {
-    let fileList = {};
-    try {
-      fileList = JSON.parse(await fs.readFile(this.fileListFilePath, "utf8"));
-    } catch (error) {
-      if (error.code !== "ENOENT") {
-        throw error;
-      }
-    }
-    fileList[id] = filename;
-    await fs.writeFile(
-      this.fileListFilePath,
-      JSON.stringify(fileList, null, 2) + "\n",
-      "utf8",
-    );
-  }
-
-  async #loadFileList() {
-    return JSON.parse(await fs.readFile(this.fileListFilePath, "utf8"));
   }
 }
