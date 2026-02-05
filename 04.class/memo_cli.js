@@ -28,12 +28,12 @@ export default class MemoCli {
     const prompt = new enquirer.Select({
       message,
       choices: summaries.map((summary) => ({
-        message: summary.content.split("\n")[0],
+        name: summary.content.split("\n")[0],
         memo: summary,
       })),
 
-      result(value) {
-        return this.choices.find((choice) => choice.value === value).memo;
+      result() {
+        return this.focused.memo;
       },
     });
     return await prompt.run();
