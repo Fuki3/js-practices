@@ -1,10 +1,10 @@
 - MemoCli
   - print(text)
   - input()
-  - choose(summaries, message)
+  - choose(memos, message)
 - MemoRepository
-  - getSummaries()
-  - delete(summary)
+  - getMemos()
+  - delete(memo)
   - save(lines)
   - #makeDirectory()
 - MemoApp
@@ -13,5 +13,5 @@
   - #showFullText()
   - #delete()
   - #add()
-  - #chooseOrSkip(summaries, message)
+  - #chooseOrSkip(memos, message)
 - NoMemoError extends Error

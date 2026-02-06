@@ -24,12 +24,12 @@ export default class MemoCli {
     return lines;
   }
 
-  async choose(summaries, message) {
+  async choose(memos, message) {
     const prompt = new enquirer.Select({
       message,
-      choices: summaries.map((summary) => ({
-        name: summary.content.split("\n")[0],
-        memo: summary,
+      choices: memos.map((memo) => ({
+        name: memo.content.split("\n")[0],
+        memo,
       })),
 
       result() {

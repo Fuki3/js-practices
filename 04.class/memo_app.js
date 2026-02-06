@@ -21,28 +21,28 @@ export default class MemoApp {
   }
 
   async #showFirstLines() {
-    const summaries = await this.memoRepository.getSummaries();
-    for (const summary of summaries) {
-      this.memoCli.print(summary.content.split("\n")[0]);
+    const memos = await this.memoRepository.getMemos();
+    for (const memo of memos) {
+      this.memoCli.print(memo.content.split("\n")[0]);
     }
   }
 
   async #showFullText() {
-    const summaries = await this.memoRepository.getSummaries();
-    const fileToShow = await this.#chooseOrSkip(
-      summaries,
+    const memos = await this.memoRepository.getMemos();
+    const memoToShow = await this.#chooseOrSkip(
+      memos,
       "Choose a memo you want to see:",
     );
-    this.memoCli.print(fileToShow.content);
+    this.memoCli.print(memoToShow.content);
   }
 
   async #delete() {
-    const summaries = await this.memoRepository.getSummaries();
-    const fileToDelete = await this.#chooseOrSkip(
-      summaries,
+    const memos = await this.memoRepository.getMemos();
+    const memoToDelete = await this.#chooseOrSkip(
+      memos,
       "Choose a memo you want to delete:",
     );
-    this.memoRepository.delete(fileToDelete);
+    this.memoRepository.delete(memoToDelete);
   }
 
   async #add() {
@@ -50,10 +50,10 @@ export default class MemoApp {
     await this.memoRepository.save(lines);
   }
 
-  async #chooseOrSkip(summaries, message) {
-    if (summaries.length === 0) {
+  async #chooseOrSkip(memos, message) {
+    if (memos.length === 0) {
       throw new NoMemoError();
     }
-    return await this.memoCli.choose(summaries, message);
+    return await this.memoCli.choose(memos, message);
   }
 }
