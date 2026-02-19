@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
-import sanitize from "sanitize-filename";
 
 export default class MemoRepository {
   constructor() {
@@ -22,15 +21,14 @@ export default class MemoRepository {
   }
 
   async delete(memo) {
-    const filename = `${memo.content.split("\n")[0]}_${memo.id}.txt`;
+    const filename = `${memo.id}.txt`;
     await fs.unlink(path.join(this.memosDirectoryPath, filename));
   }
 
   async save(lines) {
     await this.#makeDirectory();
     const id = randomUUID();
-    const firstLine = sanitize(`${lines[0]}`, { replacement: "_" });
-    const filename = `${firstLine}_${id}.txt`;
+    const filename = `${id}.txt`;
     const content = lines.join("\n");
     const filePath = path.join(this.memosDirectoryPath, filename);
     const memo = {
