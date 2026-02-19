@@ -6,7 +6,6 @@ import sanitize from "sanitize-filename";
 export default class MemoRepository {
   constructor() {
     this.memosDirectoryPath = "./memos";
-    this.fileListFilePath = "./fileList.json";
   }
 
   async getMemos() {
