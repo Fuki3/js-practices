@@ -13,7 +13,8 @@ export default class MemoRepository {
     const memos = await Promise.all(
       filenames.map(async (filename) => {
         const filePath = path.join(this.memosDirectoryPath, filename);
-        const memo = JSON.parse(await fs.readFile(filePath, "utf8"));
+        const fileContent = await fs.readFile(filePath, "utf8");
+        const memo = JSON.parse(fileContent);
         return memo;
       }),
     );
@@ -22,7 +23,8 @@ export default class MemoRepository {
 
   async delete(memo) {
     const filename = `${memo.id}.txt`;
-    await fs.unlink(path.join(this.memosDirectoryPath, filename));
+    const filePath = path.join(this.memosDirectoryPath, filename);
+    await fs.unlink(filePath);
   }
 
   async save(lines) {
