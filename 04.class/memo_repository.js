@@ -28,14 +28,15 @@ export default class MemoRepository {
   }
 
   async save(lines) {
-    await this.#makeDirectory();
     const id = randomUUID();
     const content = lines.join("\n");
     const memo = {
       id,
       content,
     };
-    const filename = `${id}.txt`;
+
+    await this.#makeDirectory();
+    const filename = `${memo.id}.txt`;
     const filePath = path.join(this.memosDirectoryPath, filename);
     await fs.writeFile(filePath, JSON.stringify(memo, null, 2));
   }
