@@ -1,0 +1,17 @@
+- MemoCli
+  - print(text)
+  - input()
+  - choose(memos, message)
+- MemoRepository
+  - getMemos()
+  - delete(memo)
+  - save(lines)
+  - #makeDirectory()
+- MemoApp
+  - runCommand(options)
+  - #showFirstLines()
+  - #showFullText()
+  - #delete()
+  - #add()
+  - #chooseOrSkip(memos, message)
+- NoMemoError extends Error
